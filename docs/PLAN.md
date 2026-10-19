@@ -143,10 +143,10 @@ Builds the dashboard's frame and the queue.
 
 Success criteria:
 
-- [ ] Vitest tests cover the queue table, the status counts, money formatting and the hash routing, with a stubbed `fetch`; coverage 80% or more
-- [ ] ESLint, Prettier and `tsc` are clean, with no `any`
-- [ ] With `npm run dev`, the Playwright MCP server shows the queue at `http://localhost:5173` with 25 claims and status chips in the brand colors, in light and dark mode, with no console errors
-- [ ] At a phone width of 390px the queue has no horizontal page scroll
+- [x] Vitest tests cover the queue table, the status counts, money formatting and the hash routing, with a stubbed `fetch`; coverage 80% or more
+- [x] ESLint, Prettier and `tsc` are clean, with no `any`
+- [x] With `npm run dev`, the Playwright MCP server shows the queue at `http://localhost:5173` with 25 claims and status chips in the brand colors, in light and dark mode, with no console errors
+- [x] At a phone width of 390px the queue has no horizontal page scroll
 
 ## Phase 5: The claim page and the instructions
 

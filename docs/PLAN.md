@@ -169,14 +169,14 @@ Success criteria:
 
 Proves the whole thing works together and leaves it ready for the next build.
 
-- `e2e/`: Playwright tests against their own backend on port 8001 and database (`UNDERCOVER_DB`), reseeded at start, with the Vite proxy target read from an environment variable so the dev server isn't touched. Tests: the queue loads with 25 claims; a decision recorded through the API shows on the claim page; the sign-off flow; the instructions page.
-- `README.md` section for the product, kept short: install, `npm run dev`, `uv run -m agent`, reset.
+- `e2e/`: Playwright tests against their own backend on port 8001 and database (`UNDERCOVER_DB`), reseeded at start, and a production build of the dashboard on port 5174 (`vite build` then `vite preview`), with the proxy target read from an environment variable so the dev servers aren't touched. The production build replaced a second dev server, which stalled under parallel page loads on Windows. Tests: the queue loads with 25 claims; a decision recorded through the API shows on the claim page; the sign-off flow; the instructions page.
+- How to run it goes in `docs/STATUS.md`, not the course's `README.md`, so pulling course updates doesn't conflict.
 - `docs/STATUS.md`: what's built, how to run it and what's left.
 
 Success criteria:
 
-- [ ] `npm run e2e` passes
-- [ ] With the real model, `uv run -m agent CLM-1001`, then two more claims of different types, each record a decision and show it on the dashboard; I report the decisions for you to review
-- [ ] `npm run check` passes in full
-- [ ] `docs/STATUS.md` describes the pilot and how to run it
-- [ ] Each phase is committed, with the pre-commit hook passing
+- [x] `npm run e2e` passes
+- [x] With the real model, `uv run -m agent CLM-1001`, then two more claims of different types, each record a decision and show it on the dashboard; I report the decisions for you to review
+- [x] `npm run check` passes in full
+- [x] `docs/STATUS.md` describes the pilot and how to run it
+- [x] Each phase is committed, with the pre-commit hook passing

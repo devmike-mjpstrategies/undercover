@@ -23,7 +23,7 @@ dashboard (React)  ──HTTP──▶  backend (FastAPI + SQLite)  ◀──HTT
 | `waiting` | Waiting | seeded | Marigold |
 | `in_progress` | In progress | the agent starts the claim | Cerulean |
 | `awaiting_sign_off` | Waiting for sign-off | the agent approves a payout over $1,000 | Coral |
-| `decided` | Decided | the agent declines or refers, the agent pays an approval of $1,000 or less, or a handler signs off | Sea Green |
+| `decided` | Decided | the agent declines, refers or approves $1,000 or less, or a handler signs off | Sea Green |
 
 A referred claim is `decided` from the agent's point of view: the decision is "refer", and it's now with a handler.
 
@@ -104,14 +104,14 @@ Builds the write operations and the sign-off rule, so the system enforces the ru
 
 Success criteria:
 
-- [ ] `start_claim` on CLM-1001 sets it to `in_progress`; `add_step` then `list_steps` returns the step
-- [ ] Recording a decline sets the claim to `decided` with payout $0.00; paying it returns 409
-- [ ] Approving $420.00 then paying $420.00 records the payment and sets `decided`; paying again returns 409; paying a different amount returns 409
-- [ ] Approving $1,250.00 sets `awaiting_sign_off`; paying $1,250.00 returns 409 "A payout over $1,000.00 needs a handler's sign-off." and no payment is recorded
-- [ ] `sign_off_claim` by HND-01 records the sign-off, releases the $1,250.00 payment and sets `decided`
-- [ ] `sign_off_claim` by a handler who can't approve over the limit returns 409; sign-off on a claim not waiting for sign-off returns 409
-- [ ] Recording a decision with a decision other than approve, decline or refer returns 422
-- [ ] Pytest passes with coverage of 80% or more; ruff and pyright are clean
+- [x] `start_claim` on CLM-1001 sets it to `in_progress`; `add_step` then `list_steps` returns the step
+- [x] Recording a decline sets the claim to `decided` with payout $0.00; paying it returns 409
+- [x] Approving $420.00 then paying $420.00 records the payment and sets `decided`; paying again returns 409; paying a different amount returns 409
+- [x] Approving $1,250.00 sets `awaiting_sign_off`; paying $1,250.00 returns 409 "A payout over $1,000.00 needs a handler's sign-off." and no payment is recorded
+- [x] `sign_off_claim` by HND-01 records the sign-off, releases the $1,250.00 payment and sets `decided`
+- [x] `sign_off_claim` by a handler who can't approve over the limit returns 409; sign-off on a claim not waiting for sign-off returns 409
+- [x] Recording a decision with a decision other than approve, decline or refer returns 422
+- [x] Pytest passes with coverage of 80% or more; ruff and pyright are clean
 
 ## Phase 3: The UnderCover Agent
 

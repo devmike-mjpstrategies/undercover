@@ -1,11 +1,12 @@
 """The shapes the UnderCover API takes and returns."""
 
-from typing import Literal
+from typing import Literal, Self
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, model_validator
 
 Status = Literal["waiting", "in_progress", "awaiting_sign_off", "decided"]
 DecisionKind = Literal["approve", "decline", "refer"]
+StepKind = Literal["tool_call", "tool_result", "message"]
 
 
 class Item(BaseModel):
@@ -25,6 +26,14 @@ class Decision(BaseModel):
     payout: float = Field(ge=0)
     reason: str = Field(min_length=1)
     policy_section: str = Field(min_length=1)
+
+    @model_validator(mode="after")
+    def payout_matches_decision(self) -> Self:
+        if self.decision == "approve" and self.payout == 0:
+            raise ValueError("An approval needs a payout.")
+        if self.decision != "approve" and self.payout != 0:
+            raise ValueError("Only an approval has a payout.")
+        return self
 
 
 class RecordedDecision(Decision):
@@ -131,3 +140,21 @@ class Handler(BaseModel):
 
 class Text(BaseModel):
     text: str
+
+
+class NewStep(BaseModel):
+    kind: StepKind
+    text: str
+
+
+class Step(NewStep):
+    id: int
+    created_at: str
+
+
+class PaymentRequest(BaseModel):
+    amount: float = Field(gt=0)
+
+
+class SignOffRequest(BaseModel):
+    handler_id: str

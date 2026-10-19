@@ -69,7 +69,7 @@ Why a command and not a button in the dashboard: it keeps the backend from depen
 - **SQLite file:** `undercover.db` at the repo root, gitignored, path overridable with the `UNDERCOVER_DB` environment variable so tests and the e2e run use their own. The backend seeds it on startup when it's empty. `uv run -m backend.seed` rebuilds it from `data/`, which resets the queue.
 - **No ORM:** the standard library's `sqlite3` with a handful of tables. It's the simplest thing that works for 25 claims.
 - **Dashboard routing:** three views (Queue, Claim, Instructions) switched by the URL hash, so no router library.
-- **Live steps:** the claim page polls `list_steps` and `get_claim` every two seconds while the claim is in progress. Simpler than websockets and enough for one agent at a time.
+- **Live steps:** the claim page polls `list_steps` and `get_claim` every two seconds while it's open, so it also notices the agent starting. Simpler than websockets and enough for one agent at a time.
 - **The pilot doesn't score the agent against `data/evals/`.** The spec keeps that for checking later, and `docs/PROCESS.md` says not to open it unless asked.
 
 ## Phase 1: Data and the read API
@@ -153,17 +153,17 @@ Success criteria:
 Builds the rest of what the team needs to see.
 
 - `dashboard/src/Claim.tsx`: the claim in full: summary, story, items, documents, the policy (plan, trip, add-ons) and earlier claims; the agent's decision, payout, reason and policy section; the payment; and the steps.
-- `dashboard/src/Steps.tsx`: the agent's steps in order, tool calls and results shown compactly, updated every two seconds while the claim is in progress.
+- `dashboard/src/Steps.tsx`: the agent's steps in order, tool calls and results shown compactly, updated every two seconds while the page is open.
 - A sign-off panel on a claim waiting for sign-off: choose a handler who can approve over the limit, then "Sign off and pay".
 - `dashboard/src/Instructions.tsx`: the agent's instructions, read only.
 
 Success criteria:
 
-- [ ] Vitest tests cover the claim page, the steps list, polling while in progress, the sign-off panel and the instructions page; coverage 80% or more
-- [ ] ESLint, Prettier and `tsc` are clean
-- [ ] With the Playwright MCP server: running `uv run -m agent CLM-1001` while the claim page is open shows the steps appearing, then the decision, reason and payment, with no reload
-- [ ] With the Playwright MCP server: a claim set up through the API with a $1,250.00 approval shows "Waiting for sign-off" and no payment; signing off as Dana Whitfield shows the payment and "Decided"
-- [ ] The Instructions view shows the same text as `GET /api/instructions` with no way to edit it
+- [x] Vitest tests cover the claim page, the steps list, polling while in progress, the sign-off panel and the instructions page; coverage 80% or more
+- [x] ESLint, Prettier and `tsc` are clean
+- [x] With the Playwright MCP server: running `uv run -m agent CLM-1001` while the claim page is open shows the steps appearing, then the decision, reason and payment, with no reload
+- [x] With the Playwright MCP server: a claim set up through the API with a $1,250.00 approval shows "Waiting for sign-off" and no payment; signing off as Dana Whitfield shows the payment and "Decided"
+- [x] The Instructions view shows the same text as `GET /api/instructions` with no way to edit it
 
 ## Phase 6: End to end, a live run and handover
 

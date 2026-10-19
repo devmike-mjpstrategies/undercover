@@ -24,6 +24,13 @@ export function money(amount: number): string {
   return amount.toLocaleString("en-US", { style: "currency", currency: "USD" });
 }
 
+export function when(timestamp: string): string {
+  return new Date(timestamp).toLocaleString("en-US", {
+    dateStyle: "medium",
+    timeStyle: "short",
+  });
+}
+
 export function label(code: string): string {
   const words = code.replaceAll("_", " ");
   return words.charAt(0).toUpperCase() + words.slice(1);

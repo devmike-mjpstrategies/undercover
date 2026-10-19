@@ -123,12 +123,12 @@ Replaces the hello-world agent with one that works a claim through the API.
 
 Success criteria:
 
-- [ ] A stub-model test runs CLM-1001 through `get_claim`, `get_policy`, `get_policy_wording`, `record_decision` (approve $420.00) and `pay_claim`; the claim ends `decided` with a payment, and `list_steps` shows each tool call and result in order
-- [ ] A stub-model test where the agent approves $1,250.00 and then calls `pay_claim` gets the 409 back as a tool result, no payment is recorded, and the claim stays `awaiting_sign_off`
-- [ ] A test checks that `run` uses the instructions served by `get_instructions`
-- [ ] `MODEL_NAME` test still passes (default `openai/gpt-6-luna`, override honored)
-- [ ] With the backend running, `uv run -m agent CLM-1001` with the real model records a decision with a payout, a two or three sentence reason and a policy section, and prints them
-- [ ] Pytest passes with coverage of 80% or more; ruff and pyright are clean
+- [x] A stub-model test runs CLM-1001 through `get_claim`, `get_policy`, `get_policy_wording`, `record_decision` (approve $420.00) and `pay_claim`; the claim ends `decided` with a payment, and `list_steps` shows each tool call and result in order
+- [x] A stub-model test where the agent approves $1,250.00 and then calls `pay_claim` gets the 409 back as a tool result, no payment is recorded, and the claim stays `awaiting_sign_off`
+- [x] A test checks that `run` uses the instructions served by `get_instructions`
+- [x] `MODEL_NAME` test still passes (default `openai/gpt-6-luna`, override honored)
+- [x] With the backend running, `uv run -m agent CLM-1001` with the real model records a decision with a payout, a two or three sentence reason and a policy section, and prints them
+- [x] Pytest passes with coverage of 80% or more; ruff and pyright are clean
 
 ## Phase 4: The dashboard queue and the brand
 

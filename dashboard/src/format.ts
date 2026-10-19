@@ -31,6 +31,13 @@ export function when(timestamp: string): string {
   });
 }
 
+export function day(date: string): string {
+  return new Date(date).toLocaleDateString("en-US", {
+    dateStyle: "medium",
+    timeZone: "UTC",
+  });
+}
+
 export function label(code: string): string {
   const words = code.replaceAll("_", " ");
   return words.charAt(0).toUpperCase() + words.slice(1);

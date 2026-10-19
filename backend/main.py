@@ -132,11 +132,17 @@ def health() -> dict[str, str]:
 @app.get("/api/claims", operation_id="list_claims")
 def list_claims(connection: Database) -> list[ClaimSummary]:
     """List the claims queue in order, with where each claim stands."""
-    rows = connection.execute("SELECT * FROM claims ORDER BY position").fetchall()
+    rows = connection.execute(
+        "SELECT claims.*, json_extract(customers.data, '$.name') AS customer_name"
+        " FROM claims JOIN customers"
+        " ON customers.customer_id = json_extract(claims.data, '$.customer_id')"
+        " ORDER BY position"
+    ).fetchall()
     return [
         ClaimSummary(
             **json.loads(row["data"])
             | {
+                "customer_name": row["customer_name"],
                 "status": row["status"],
                 "decision": row["decision"],
                 "payout": row["payout"],

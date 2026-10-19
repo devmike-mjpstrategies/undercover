@@ -1,6 +1,6 @@
 import { api } from "./api";
-import { decisionLabels, label, money, statuses } from "./format";
-import { StatusChip } from "./StatusChip";
+import { day, label, money, statuses } from "./format";
+import { DecisionChip, StatusChip } from "./StatusChip";
 import { useData } from "./useData";
 
 export const QUEUE_REFRESH_MS = 5000;
@@ -36,9 +36,11 @@ export function Queue() {
             <thead>
               <tr>
                 <th>Claim</th>
+                <th>Customer</th>
                 <th>Type</th>
                 <th className="wide">Summary</th>
                 <th className="number">Claimed</th>
+                <th>Submitted</th>
                 <th>Status</th>
                 <th>Decision</th>
                 <th className="number">Payout</th>
@@ -50,14 +52,18 @@ export function Queue() {
                   <td className="mono">
                     <a href={`#/claims/${claim.claim_id}`}>{claim.claim_id}</a>
                   </td>
+                  <td>{claim.customer_name}</td>
                   <td>{label(claim.claim_type)}</td>
                   <td className="wide">{claim.summary}</td>
                   <td className="number">{money(claim.amount_claimed)}</td>
+                  <td className="mono">{day(claim.submitted_on)}</td>
                   <td>
                     <StatusChip status={claim.status} />
                   </td>
                   <td>
-                    {claim.decision ? decisionLabels[claim.decision] : ""}
+                    {claim.decision && (
+                      <DecisionChip decision={claim.decision} />
+                    )}
                   </td>
                   <td className="number">
                     {claim.payout === null ? "" : money(claim.payout)}

@@ -4,7 +4,9 @@ export type DecisionKind = "approve" | "decline" | "refer";
 
 export interface ClaimSummary {
   claim_id: string;
+  customer_name: string;
   claim_type: string;
+  submitted_on: string;
   summary: string;
   amount_claimed: number;
   status: Status;

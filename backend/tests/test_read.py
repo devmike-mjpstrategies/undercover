@@ -28,6 +28,8 @@ def test_list_claims(client):
     assert claims[0]["claim_id"] == "CLM-1001"
     assert {claim["status"] for claim in claims} == {"waiting"}
     assert claims[0]["decision"] is None
+    assert claims[0]["customer_name"] == "Maya Patel"
+    assert claims[0]["submitted_on"] == "2026-06-24"
 
 
 def test_get_claim(client):

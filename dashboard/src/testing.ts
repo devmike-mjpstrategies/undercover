@@ -21,7 +21,9 @@ export function stubApi(routes: Record<string, unknown>) {
 export function summary(overrides: Partial<ClaimSummary>): ClaimSummary {
   return {
     claim_id: "CLM-1001",
+    customer_name: "Maya Patel",
     claim_type: "trip_delay",
+    submitted_on: "2026-06-24",
     summary: "Flight home canceled",
     amount_claimed: 420,
     status: "waiting",

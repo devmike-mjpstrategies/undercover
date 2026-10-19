@@ -53,7 +53,9 @@ class SignOff(BaseModel):
 
 class ClaimSummary(BaseModel):
     claim_id: str
+    customer_name: str
     claim_type: str
+    submitted_on: str
     summary: str
     amount_claimed: float
     status: Status

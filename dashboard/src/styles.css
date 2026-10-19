@@ -166,6 +166,19 @@ h3 {
   background: var(--sea-green);
 }
 
+.chip-approve {
+  background: var(--sea-green);
+}
+
+.chip-refer {
+  background: var(--marigold);
+}
+
+.chip-decline {
+  background: var(--raspberry);
+  color: #ffffff;
+}
+
 .table-wrap {
   overflow-x: auto;
 }

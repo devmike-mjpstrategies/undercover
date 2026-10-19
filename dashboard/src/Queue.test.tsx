@@ -35,7 +35,9 @@ it("lists the claims with where each stands", async () => {
   const cells = within(row);
   expect(cells.getByText("Baggage")).toBeDefined();
   expect(cells.getByText("$1,150.00")).toBeDefined();
-  expect(cells.getByText("Approved")).toBeDefined();
+  expect(cells.getByText("Maya Patel")).toBeDefined();
+  expect(cells.getByText("Jun 24, 2026")).toBeDefined();
+  expect(cells.getByText("Approved").className).toBe("chip chip-approve");
   expect(cells.getByText("$1,100.00")).toBeDefined();
   expect(cells.getByText("Decided").className).toBe("chip chip-decided");
   expect(
